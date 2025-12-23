@@ -1,5 +1,7 @@
 package com.example.room;
 
+import static com.example.utils.Utils.*;
+
 public class Game {
     private final ChessBoard board; // 棋盘
     private Stone currentTurn;      // 本轮棋子颜色
@@ -23,6 +25,10 @@ public class Game {
         if (checkWin(x, y)) {
             finished = true;
             winner = currentTurn;
+            return;
+        } else if (board.getStoneCounts() == CHESS_BOARD_SIZE * CHESS_BOARD_SIZE) {
+            finished = true;
+            winner = null;
             return;
         }
         currentTurn = Stone.takeTurn(currentTurn);
