@@ -1,4 +1,4 @@
-package com.example.room;
+package com.example.model.room;
 
 import static com.example.utils.Utils.*;
 

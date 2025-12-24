@@ -1,6 +1,6 @@
-package com.example.room;
+package com.example.model.room;
 
-import com.example.player.Player;
+import com.example.model.player.Player;
 import java.util.Random;
 
 public class GameRoom {

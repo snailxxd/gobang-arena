@@ -1,4 +1,4 @@
-package com.example.room;
+package com.example.model.room;
 
 /**
  * 棋子枚举类型

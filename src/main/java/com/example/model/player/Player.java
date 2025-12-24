@@ -1,6 +1,6 @@
-package com.example.player;
+package com.example.model.player;
 
-import com.example.room.Stone;
+import com.example.model.room.Stone;
 
 public class Player {
     private String name;
