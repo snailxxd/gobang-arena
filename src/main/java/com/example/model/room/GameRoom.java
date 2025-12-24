@@ -46,6 +46,7 @@ public class GameRoom {
         } else {
             throw new IllegalArgumentException("玩家不存在");
         }
+        this.state = RoomState.WAITING;
         updateTime();
     }
 
@@ -53,7 +54,7 @@ public class GameRoom {
      * 开始游戏
      * @throws Exception 如果人数不足
      */
-    public void startGame() throws Exception {
+    public synchronized void startGame() throws Exception {
         if (player1 == null || player2 == null) {
             throw new Exception("人数不足，无法开始");
         }
