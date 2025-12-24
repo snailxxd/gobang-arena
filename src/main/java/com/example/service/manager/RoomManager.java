@@ -15,7 +15,7 @@ public class RoomManager {
 
     private RoomManager() {}
 
-    public RoomManager getInstance() {
+    public static RoomManager getInstance() {
         return INSTANCE;
     }
 
