@@ -10,11 +10,12 @@ public class GameRoom {
     private Player player1;
     private Player player2;
     private Player winner;
-
+    private long lastActiveTime;
 
     public GameRoom(String roomId) {
         this.roomId = roomId;
         this.state = RoomState.WAITING;
+        this.lastActiveTime = System.currentTimeMillis();
     }
 
     /**
@@ -22,7 +23,7 @@ public class GameRoom {
      * @param player 加入的玩家
      * @throws Exception 如果房间已满
      */
-    public void join(Player player) throws Exception {
+    public synchronized void join(Player player) throws Exception {
         if (player1 == null) {
             player1 = player;
         } else if (player2 == null) {
@@ -30,13 +31,14 @@ public class GameRoom {
         } else {
             throw new Exception("房间已满");
         }
+        updateTime();
     }
 
     /**
      * 离开房间
      * @param player 离开的玩家
      */
-    public void leave(Player player) {
+    public synchronized void leave(Player player) {
         if (player1 == player) {
             player1 = null;
         } else if (player2 == player) {
@@ -44,6 +46,7 @@ public class GameRoom {
         } else {
             throw new IllegalArgumentException("玩家不存在");
         }
+        updateTime();
     }
 
     /**
@@ -74,9 +77,17 @@ public class GameRoom {
             player1.setStone(player2.getStone());
             player2.setStone(tmp);
         }
+        updateTime();
     }
 
-    public void move(Player player, int x, int y) throws Exception {
+    /**
+     * 落子函数
+     * @param player 落子玩家
+     * @param x 落子行号
+     * @param y 落子列号
+     * @throws Exception 此时不能落子
+     */
+    public synchronized void move(Player player, int x, int y) throws Exception {
         if (game == null) {
             throw new Exception("游戏尚未开始");
         }
@@ -98,6 +109,7 @@ public class GameRoom {
                 winner = player2;
             }
         }
+        updateTime();
     }
 
     public String getRoomId() {
@@ -110,5 +122,13 @@ public class GameRoom {
 
     public RoomState getState() {
         return state;
+    }
+
+    public long getLastActiveTime() {
+        return lastActiveTime;
+    }
+
+    private void updateTime() {
+        lastActiveTime = System.currentTimeMillis();
     }
 }
