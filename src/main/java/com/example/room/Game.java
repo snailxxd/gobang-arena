@@ -24,14 +24,22 @@ public class Game {
         board.move(x, y, currentTurn);
         if (checkWin(x, y)) {
             finished = true;
-            winner = currentTurn;
+            winner = currentTurn;   // 当前颜色获胜
             return;
         } else if (board.getStoneCounts() == CHESS_BOARD_SIZE * CHESS_BOARD_SIZE) {
             finished = true;
-            winner = null;
+            winner = null;          // 平局
             return;
         }
         currentTurn = Stone.takeTurn(currentTurn);
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public Stone getCurrentTurn() {
+        return currentTurn;
     }
 
     public Stone getWinner() {
