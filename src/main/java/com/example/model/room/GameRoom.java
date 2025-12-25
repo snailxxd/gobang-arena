@@ -14,7 +14,7 @@ public class GameRoom {
 
     public GameRoom(String roomId) {
         this.roomId = roomId;
-        this.state = RoomState.WAITING;
+        this.state = RoomState.EMPTY;
         this.lastActiveTime = System.currentTimeMillis();
     }
 
@@ -31,6 +31,12 @@ public class GameRoom {
         } else {
             throw new Exception("房间已满");
         }
+        player.setRoomId(roomId);
+        if (state == RoomState.WAITING) {
+            state = RoomState.READY;
+        } else {
+            state = RoomState.WAITING;
+        }
         updateTime();
     }
 
@@ -46,7 +52,12 @@ public class GameRoom {
         } else {
             throw new IllegalArgumentException("玩家不存在");
         }
-        this.state = RoomState.WAITING;
+        if (this.state == RoomState.WAITING) {
+            this.state = RoomState.EMPTY;
+        } else {
+            this.state = RoomState.WAITING;
+        }
+        player.setRoomId(null);
         updateTime();
     }
 
@@ -55,7 +66,7 @@ public class GameRoom {
      * @throws Exception 如果人数不足
      */
     public synchronized void startGame() throws Exception {
-        if (player1 == null || player2 == null) {
+        if (state != RoomState.READY) {
             throw new Exception("人数不足，无法开始");
         }
 
@@ -102,7 +113,7 @@ public class GameRoom {
         game.move(x, y);            // 落子
 
         if (game.isFinished()) {    // 检查游戏状态，判断赢家
-            state = RoomState.FINISHED;
+            state = RoomState.READY;
             Stone winnerStone = game.getWinner();
             if (winnerStone == player1.getStone()) {
                 winner = player1;

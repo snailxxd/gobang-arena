@@ -1,7 +1,8 @@
 package com.example.model.room;
 
 public enum RoomState {
+    EMPTY,
     WAITING,
-    PLAYING,
-    FINISHED
+    READY,
+    PLAYING
 }
