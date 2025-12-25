@@ -4,7 +4,15 @@ import com.example.model.player.Player;
 import com.example.model.room.GameRoom;
 
 public class GameManager {
+    private static final GameManager INSTANCE = new GameManager();
+
     private final RoomManager roomManager = RoomManager.getInstance();
+
+    private GameManager() {}
+
+    public static GameManager getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * 处理加入请求
