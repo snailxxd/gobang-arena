@@ -26,7 +26,7 @@ public class ChessBoard {
         if (stone == Stone.EMPTY || stone == null) {
             throw new IllegalArgumentException("Invalid stone");
         }
-        if (inBoard(row, col)) {
+        if (!inBoard(row, col)) {
             throw new IllegalArgumentException("Invalid square");
         }
         chessBoard[row][col] = stone;
