@@ -57,7 +57,7 @@ public class RoomManager {
         long now = System.currentTimeMillis();
         // 找到超时空闲房间 id
         List<String> idleRoomIds = rooms.values().stream()
-                .filter(room -> (now - room.getLastActiveTime()) > timeoutMills && room.getState() != RoomState.PLAYING)
+                .filter(room -> (now - room.getLastActiveTime()) > timeoutMills && room.getState() == RoomState.EMPTY)
                 .map(GameRoom::getRoomId)
                 .toList();
         for (String roomId : idleRoomIds) {
