@@ -1,6 +1,7 @@
 package com.example.app;
 
 import com.example.service.server.ClientHandler;
+import com.example.service.server.IdelRoomCleaner;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,6 +13,7 @@ public class PlatformServer {
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
             System.out.println("Listening on: " + serverSocket.getInetAddress() + ":" + serverSocket.getLocalPort());
+            new Thread(new IdelRoomCleaner()).start();
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Client connected" + socket.getInetAddress() + ":" + socket.getPort());
