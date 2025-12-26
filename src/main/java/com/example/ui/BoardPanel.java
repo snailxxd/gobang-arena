@@ -2,6 +2,10 @@ package com.example.ui;
 
 import com.example.model.room.ChessBoard;
 import com.example.model.room.Stone;
+import com.example.service.client.ClientNetworkHelper;
+import com.example.service.network.MoveRequest;
+import com.example.service.network.MsgType;
+import com.example.service.network.NetworkPacket;
 
 import javax.swing.*;
 
@@ -12,7 +16,8 @@ import java.awt.event.MouseEvent;
 import static com.example.utils.Utils.*;
 
 public class BoardPanel extends JPanel {
-    private final ChessBoard board;
+    private ChessBoard board;
+    private final ClientNetworkHelper clientNetworkHelper = ClientNetworkHelper.getInstance();
 
     public BoardPanel(ChessBoard board) {
         this.board = board;
@@ -60,16 +65,19 @@ public class BoardPanel extends JPanel {
         }
     }
 
+    public void updateBoard(ChessBoard board) {
+        this.board = board;
+        repaint();
+    }
+
     private void handleMouseClick(java.awt.event.MouseEvent e) {
         int row = (e.getX() - MARGIN) / CELL_SIZE;
         int col = (e.getY() - MARGIN) / CELL_SIZE;
-
         if (!board.inBoard(row, col)) {     // 点击位置不在棋盘内
             return;
         }
-
-        // TODO: 实现处理逻辑
-
-        repaint();
+        MoveRequest moveRequest = new MoveRequest(null, row, col);
+        NetworkPacket packet = NetworkPacket.of(MsgType.MOVE, moveRequest);
+        clientNetworkHelper.sendPacket(packet);
     }
 }
