@@ -1,14 +1,14 @@
 import com.example.model.room.GameRoom;
 import com.example.service.manager.RoomManager;
 import com.example.ui.GameFrame;
+import com.example.ui.PlatformFrame;
 
 import javax.swing.*;
 
-public class TestGameFrame {
+public class TestPlatformFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            GameRoom gameRoom = RoomManager.getInstance().createRoom();
-            GameFrame gameFrame = new GameFrame(gameRoom, null);
+            PlatformFrame frame = new PlatformFrame();
         });
     }
 }
