@@ -10,6 +10,10 @@ public class Game {
 
     public Game() {
         board = new ChessBoard();
+    }
+
+    public void start() {
+        board.clear();
         currentTurn = Stone.BLACK;
         finished = false;
         winner = null;
@@ -44,6 +48,10 @@ public class Game {
 
     public Stone getWinner() {
         return winner;
+    }
+
+    public ChessBoard getBoard() {
+        return board;
     }
 
     /**

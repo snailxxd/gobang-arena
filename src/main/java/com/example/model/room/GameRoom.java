@@ -13,6 +13,7 @@ public class GameRoom {
     private long lastActiveTime;
 
     public GameRoom(String roomId) {
+        this.game = new Game();
         this.roomId = roomId;
         this.state = RoomState.EMPTY;
         this.lastActiveTime = System.currentTimeMillis();
@@ -70,7 +71,7 @@ public class GameRoom {
             throw new Exception("人数不足，无法开始");
         }
 
-        game = new Game();
+        game.start();
         state = RoomState.PLAYING;
         winner = null;
 
@@ -130,6 +131,18 @@ public class GameRoom {
 
     public Player getWinner() {
         return winner;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public ChessBoard getBoard() {
+        return game.getBoard();
     }
 
     public RoomState getState() {

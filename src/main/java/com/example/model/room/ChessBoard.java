@@ -44,4 +44,13 @@ public class ChessBoard {
     public boolean inBoard(int row, int col) {
         return row >= 0 && row < CHESS_BOARD_SIZE && col >= 0 && col < CHESS_BOARD_SIZE;
     }
+
+    public void clear() {
+        for (int x = 0; x < CHESS_BOARD_SIZE; x++) {
+            for (int y = 0; y < CHESS_BOARD_SIZE; y++) {
+                chessBoard[x][y] = Stone.EMPTY;
+            }
+        }
+        stoneCounts = 0;
+    }
 }
