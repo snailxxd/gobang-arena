@@ -29,6 +29,9 @@ public class ChessBoard {
         if (!inBoard(row, col)) {
             throw new IllegalArgumentException("Invalid square");
         }
+        if (chessBoard[row][col] != Stone.EMPTY) {
+            throw new IllegalArgumentException("此处不能落子");
+        }
         chessBoard[row][col] = stone;
         stoneCounts++;
     }

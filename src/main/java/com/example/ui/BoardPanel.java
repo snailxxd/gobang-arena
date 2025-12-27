@@ -41,12 +41,17 @@ public class BoardPanel extends JPanel {
         g.setColor(Color.black);
 
         // 画棋盘
-        for (int i = 0; i <= CHESS_BOARD_SIZE; i++) {
+        for (int i = 0; i < CHESS_BOARD_SIZE; i++) {
             g.drawLine(MARGIN, MARGIN + i * CELL_SIZE,
-                    MARGIN + CHESS_BOARD_SIZE * CELL_SIZE, MARGIN + i * CELL_SIZE);
+                    MARGIN + (CHESS_BOARD_SIZE - 1) * CELL_SIZE, MARGIN + i * CELL_SIZE);
             g.drawLine(MARGIN + i * CELL_SIZE, MARGIN,
-                    MARGIN + i * CELL_SIZE, MARGIN + CHESS_BOARD_SIZE * CELL_SIZE);
+                    MARGIN + i * CELL_SIZE, MARGIN + (CHESS_BOARD_SIZE - 1) * CELL_SIZE);
         }
+
+        // 画外框
+        g.drawRect(MARGIN - 5, MARGIN - 5,
+                (CHESS_BOARD_SIZE - 1) * CELL_SIZE + 10,
+                (CHESS_BOARD_SIZE - 1) * CELL_SIZE + 10);
 
         // 画棋子
         for (int x = 0; x < CHESS_BOARD_SIZE; x++) {
@@ -57,8 +62,8 @@ public class BoardPanel extends JPanel {
                     } else {
                         g.setColor(java.awt.Color.WHITE);
                     }
-                    g.fillOval(MARGIN + x * CELL_SIZE + CELL_SIZE /2 - STONE_RADIUS,
-                            MARGIN + y * CELL_SIZE + CELL_SIZE /2 - STONE_RADIUS,
+                    g.fillOval(MARGIN + x * CELL_SIZE - STONE_RADIUS,
+                            MARGIN + y * CELL_SIZE - STONE_RADIUS,
                             STONE_RADIUS * 2, STONE_RADIUS * 2);
                 }
             }
@@ -71,8 +76,8 @@ public class BoardPanel extends JPanel {
     }
 
     private void handleMouseClick(java.awt.event.MouseEvent e) {
-        int row = (e.getX() - MARGIN) / CELL_SIZE;
-        int col = (e.getY() - MARGIN) / CELL_SIZE;
+        int row = (e.getX() - MARGIN + CELL_SIZE / 2) / CELL_SIZE;
+        int col = (e.getY() - MARGIN + CELL_SIZE / 2) / CELL_SIZE;
         if (!board.inBoard(row, col)) {     // 点击位置不在棋盘内
             return;
         }

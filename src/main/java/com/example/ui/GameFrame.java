@@ -24,6 +24,7 @@ public class GameFrame extends JFrame implements ClientEventListener {
 
         setTitle("五子棋游戏");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         boardPanel = new BoardPanel(gameRoom.getBoard());
         roomPanel = new RoomPanel(gameRoom);
@@ -47,14 +48,15 @@ public class GameFrame extends JFrame implements ClientEventListener {
     }
 
     public void updateRoom(GameRoom gameRoom) {
+        boolean isFinished = this.gameRoom.getWinner() != null;
         this.gameRoom = gameRoom;
-        if (gameRoom.getWinner() != null) {
-            String winnerName = gameRoom.getWinner().getName();
-            JOptionPane.showMessageDialog(this, "游戏结束！获胜者是: " + winnerName, "游戏结束", JOptionPane.INFORMATION_MESSAGE);
-        }
         roomPanel.updateRoom(gameRoom);
         boardPanel.updateBoard(gameRoom.getBoard());
         repaint();
+        if (gameRoom.getWinner() != null && !isFinished) {
+            String winnerName = gameRoom.getWinner().getName();
+            JOptionPane.showMessageDialog(this, "游戏结束！获胜者是: " + winnerName, "游戏结束", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Override
