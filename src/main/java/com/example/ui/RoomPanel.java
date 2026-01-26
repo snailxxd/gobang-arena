@@ -78,12 +78,12 @@ public class RoomPanel extends JPanel {
     }
 
     private void refresh() {
-        roomId.setText(gameRoom.getRoomId());
-        player1Label.setText(nameOrEmpty(gameRoom.getPlayer1()));
-        player2Label.setText(nameOrEmpty(gameRoom.getPlayer2()));
-        player1Color.setText(colorOrEmpty(gameRoom.getPlayer1()));
-        player2Color.setText(colorOrEmpty(gameRoom.getPlayer2()));
-        statusLabel.setText(gameRoom.getState().toString());
+        roomId.setText("Room ID: " + gameRoom.getRoomId());
+        player1Label.setText("玩家 1: " + nameOrEmpty(gameRoom.getPlayer1()));
+        player2Label.setText("玩家 2: " + nameOrEmpty(gameRoom.getPlayer2()));
+        player1Color.setText("执子: " + colorOrEmpty(gameRoom.getPlayer1()));
+        player2Color.setText("执子: " + colorOrEmpty(gameRoom.getPlayer2()));
+        statusLabel.setText("房间状态: " + gameRoom.getState().toString());
         revalidate();
         repaint();
     }
