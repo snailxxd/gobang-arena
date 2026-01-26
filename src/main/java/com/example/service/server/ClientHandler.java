@@ -56,6 +56,7 @@ public class ClientHandler implements Runnable{
     }
 
     private void handlePacket(NetworkPacket packet) throws Exception {
+        System.out.println("Received packet: " + packet.getType() + packet.getData());
         switch (packet.getType()) {
             case LOGIN: {
                 PlayerRequest req = gson.fromJson(packet.getData(), PlayerRequest.class);
@@ -70,7 +71,7 @@ public class ClientHandler implements Runnable{
             }
             case CREATE_ROOM: {
                 GameRoom room = roomManager.createRoom();
-                sendPacket(NetworkPacket.of(MsgType.ROOM_ID, "房间ID: " + room.getRoomId()));    // 通知客户端 roomId
+                sendPacket(NetworkPacket.of(MsgType.ROOM_ID, room.getRoomId()));    // 通知客户端 roomId
                 break;
             }
             case JOIN_ROOM: {

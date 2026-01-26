@@ -48,7 +48,7 @@ public class PlatformFrame extends JFrame implements ClientEventListener {
 
     private void connectServer() {
         try {
-            clientNetworkHelper.connect("localhost", SERVER_PORT);
+            clientNetworkHelper.connect(SERVER_IP, SERVER_PORT_REMOTE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "无法连接到服务器: " + e.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
@@ -141,7 +141,8 @@ public class PlatformFrame extends JFrame implements ClientEventListener {
     @Override
     public void onRoomId(String roomId) {
         SwingUtilities.invokeLater(() -> {
-            JOptionPane.showMessageDialog(this, roomId, "房间已创建", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "房间已创建！ID: "+ roomId, "房间已创建", JOptionPane.INFORMATION_MESSAGE);
+            clientNetworkHelper.sendPacket(NetworkPacket.of(MsgType.JOIN_ROOM, new RoomRequest(roomId.trim())));
         });
     }
 }

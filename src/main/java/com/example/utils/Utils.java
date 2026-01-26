@@ -2,6 +2,8 @@ package com.example.utils;
 
 public class Utils {
     public static final int CHESS_BOARD_SIZE = 15;
+    public static final String SERVER_IP = "60.215.128.50";
+    public static final int SERVER_PORT_REMOTE = 41879;
     public static final int SERVER_PORT = 1879;
 
     public static final int CELL_SIZE = 40;    // 每个格子的大小
